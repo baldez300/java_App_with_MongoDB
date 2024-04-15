@@ -1,3 +1,5 @@
+package org.example.java_app_with_mongodb;
+
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
@@ -8,9 +10,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-import javax.swing.JOptionPane;
+import javafx.scene.control.Alert;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
 
-public class HelloApplication {
+
+public class HelloController {
     @FXML
     private Label welcomeText;
 
@@ -26,8 +32,24 @@ public class HelloApplication {
     @FXML
     private TextField cityField;
 
-    private void addStudent() {
-        try (MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017")) {
+    public static class EnvLoader {
+        public static Properties load() {
+            Properties props = new Properties();
+            try (FileInputStream fis = new FileInputStream(".env")) {
+                props.load(fis);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return props;
+        }
+    }
+
+    Properties env = EnvLoader.load();
+    String mongodbURI = env.getProperty("MONGODB_URI");
+
+    @FXML
+    public void onAddButtonClick(ActionEvent actionEvent) {
+        try (MongoClient mongoClient = MongoClients.create(mongodbURI)) {
             MongoDatabase database = mongoClient.getDatabase("classroom");
             MongoCollection<Document> collection = database.getCollection("students");
 
@@ -43,11 +65,19 @@ public class HelloApplication {
                     .append("city", city);
 
             collection.insertOne(document);
-            JOptionPane.showMessageDialog(null, "Student added successfully!");
+            showAlert("Student added successfully!", Alert.AlertType.INFORMATION);
             clearFields();
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Error occurred: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            showAlert("Error occurred: " + ex.getMessage(), Alert.AlertType.ERROR);
         }
+    }
+
+    private void showAlert(String s, Alert.AlertType alertType) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle("Information");
+        alert.setHeaderText(null);
+        alert.setContentText(s);
+        alert.showAndWait();
     }
 
     private void clearFields() {
@@ -57,40 +87,112 @@ public class HelloApplication {
         cityField.setText("");
     }
 
-    public void onAddButtonClick(ActionEvent actionEvent) {
+    public void onHelloButtonClick(ActionEvent actionEvent) {
         welcomeText.setText("Welcome to JavaFX Application!");
-        addStudent();
     }
 
+    @FXML
     public void onReadButtonClick(ActionEvent actionEvent) {
-        try (MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017")) {
+        try (MongoClient mongoClient = MongoClients.create(mongodbURI)) {
             MongoDatabase database = mongoClient.getDatabase("classroom");
             MongoCollection<Document> collection = database.getCollection("students");
 
-            double id = Double.parseDouble(IDField.getText());
-            Document query = new Document("id", id);
+            // double id = Double.parseDouble(IDField.getText());
+            //Document query = new Document("id", id);
+            String name = nameField.getText();
+            Document query = new Document("name", name);
             Document student = collection.find(query).first();
 
             if (student != null) {
                 String message = String.format("Found Student: %s with ID: %.0f and Age: %d from %s",
                         student.getString("name"), student.getDouble("id"),
                         student.getInteger("age"), student.getString("city"));
-                JOptionPane.showMessageDialog(null, message);
+
+                // Display the student data in a JavaFX dialog
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Student Information");
+                alert.setHeaderText(null);
+                alert.setContentText(message);
+                alert.showAndWait();
             } else {
-                JOptionPane.showMessageDialog(null, "Student not found!", "Error", JOptionPane.ERROR_MESSAGE);
+                // If student not found, display an error dialog
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("Student not found!");
+                alert.showAndWait();
             }
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Error occurred: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            // If an error occurs, display an error dialog
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Error occurred: " + ex.getMessage());
+            alert.showAndWait();
         }
     }
 
-    public void onUpdateButtonClick(ActionEvent actionEvent) {
-        // Implement update operation
-        JOptionPane.showMessageDialog(null, "Student updated successfully!");
+    @FXML
+    private void onUpdateButtonClick() {
+        try (MongoClient mongoClient = MongoClients.create(mongodbURI)) {
+
+            MongoDatabase database = mongoClient.getDatabase("classroom");
+            MongoCollection<Document> collection = database.getCollection("students");
+
+            double id = Double.parseDouble(IDField.getText());
+            String name = nameField.getText();
+            int age = Integer.parseInt(ageField.getText());
+            String city = cityField.getText();
+
+            Document query = new Document("id", id);
+            Document update = new Document("$set", new Document("name", name).append("age", age).append("city", city));
+
+            if (collection.updateOne(query, update).getModifiedCount() == 0) {
+                throw new Exception("Student not found!");
+            }
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Update Successful");
+            alert.setHeaderText(null);
+            alert.setContentText("Student updated successfully!");
+            alert.showAndWait();
+        } catch (Exception ex) {
+            // If an error occurs, display an error dialog
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Error occurred: " + ex.getMessage());
+            alert.showAndWait();
+        }
     }
 
-    public void onDeleteButtonClick(ActionEvent actionEvent) {
-        // Implement delete operation
-        JOptionPane.showMessageDialog(null, "Student deleted successfully!");
+    @FXML
+    private void onDeleteButtonClick() {
+        try (MongoClient mongoClient = MongoClients.create(mongodbURI)) {
+
+            MongoDatabase database = mongoClient.getDatabase("classroom");
+            MongoCollection<Document> collection = database.getCollection("students");
+
+            double id = Double.parseDouble(IDField.getText());
+            Document query = new Document("id", id);
+
+            if (collection.deleteOne(query).getDeletedCount() == 0) {
+                throw new Exception("Student not found!");
+            }
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Delete Successful");
+            alert.setHeaderText(null);
+            alert.setContentText("Student deleted successfully!");
+            alert.showAndWait();
+        } catch (Exception ex) {
+            // If an error occurs, display an error dialog
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Error occurred: " + ex.getMessage());
+            alert.showAndWait();
+        }
     }
+
 }

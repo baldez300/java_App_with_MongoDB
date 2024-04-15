@@ -5,6 +5,10 @@
 <?import javafx.scene.layout.VBox?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?xml-stylesheet type="text/css" href="style.css"?>
+
 <VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
       fx:controller="org.example.java_app_with_mongodb.HelloController">
     <padding>
@@ -12,5 +16,31 @@
     </padding>
 
     <Label fx:id="welcomeText"/>
-    <Button text="Hello!" onAction="#onHelloButtonClick"/>
+
+    <HBox>
+        <Label text="ID:" prefWidth="100"/>
+        <TextField fx:id="IDField" promptText="ID" styleClass="text-field"/>
+    </HBox>
+    <HBox>
+        <Label text="Name:" prefWidth="100"/>
+        <TextField fx:id="nameField" promptText="Name" styleClass="text-field"/>
+    </HBox>
+    <HBox>
+        <Label text="Age:" prefWidth="100"/>
+        <TextField fx:id="ageField" promptText="Age" styleClass="text-field"/>
+    </HBox>
+    <HBox>
+        <Label text="City:" prefWidth="100"/>
+        <TextField fx:id="cityField" promptText="City" styleClass="text-field"/>
+    </HBox>
+
+    <HBox>
+        <Button text="Add" onAction="#onAddButtonClick" styleClass="button"/>
+        <Button text="Read" onAction="#onReadButtonClick" styleClass="button"/>
+    </HBox>
+
+    <HBox>
+        <Button text="Update" onAction="#onUpdateButtonClick" styleClass="button"/>
+        <Button text="Delete" onAction="#onDeleteButtonClick" styleClass="button"/>
+    </HBox>
 </VBox>

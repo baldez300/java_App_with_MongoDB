@@ -1,0 +1,69 @@
+Exercise: Building a Java Application with MongoDB
+Objective:
+Create a Java application that interacts with a MongoDB database.
+Implement basic CRUD (Create, Read, Update, Delete) operations using MongoDB.
+Learn how to connect Java with a NoSQL database.
+Add new data
+2. Read by object ID, you may implement by Name as an example
+3. Delete function
+-----------------------------------------------------------------
+
+Make sure command 'mongod' is running in terminal
+-----------------------------------------------------------------
+import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import org.bson.Document;
+
+public class MongoDBExample {
+    public static void main(String[] args) {
+        try (MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017")) {
+            MongoDatabase database = mongoClient.getDatabase("test");
+            MongoCollection<Document> collection = database.getCollection("products");
+
+            Document document = new Document()
+                    .append("_id", 3)
+                    .append("name", "Sample Product1")
+                    .append("price", 0.99)
+                    .append("description", "This is a sample product description.");
+
+            collection.insertOne(document);
+        } catch (Exception e) {
+            System.err.println("An error occurred: " + e);
+        }
+    }
+}
+
+-----------------------------------------------------------------
+pom.xml added dependencies for MongoDB
+
+        <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongodb-driver-sync</artifactId>
+            <version>4.8.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>bson</artifactId>
+            <version>${mongodb.driver.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.32</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.7.32</version>
+        </dependency>
+
+-----------------------------------------------------------------
+
+module-info.java
+
+requires org.mongodb.bson;
+requires org.mongodb.driver.sync.client;
+requires org.mongodb.driver.core;
+requires org.mongodb.ConnectionString;
