@@ -1,0 +1,28 @@
+/* style.css */
+
+/* Style for labels */
+.label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #333;
+}
+
+/* Style for text fields */
+.text-field {
+    -fx-font-size: 14px;
+    -fx-prompt-text-fill: #999;
+}
+
+/* Style for buttons */
+.button {
+    -fx-font-size: 14px;
+    -fx-text-fill: #fff;
+    -fx-background-color: #007bff;
+    -fx-padding: 8px 16px;
+    -fx-border-radius: 4px;
+    -fx-cursor: hand;
+}
+
+/* Hover effect for buttons */
+.button:hover {
+    -fx-background-color: #0056b3;
+}
