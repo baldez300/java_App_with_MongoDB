@@ -9,6 +9,9 @@ Add new data
 -----------------------------------------------------------------
 
 Make sure command 'mongod' is running in terminal
+
+-----------------------------------------------------------------
+Choose a Jar file from 'MongoDbJdbcDriver' folder and add it to the project
 -----------------------------------------------------------------
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoClient;
