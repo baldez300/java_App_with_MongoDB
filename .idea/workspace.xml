@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9a2f3f20-e18b-4353-a38e-f724d5660794" name="Changes" comment="Implemented MongoDB CRUD operations with JavaFX GUI">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="9a2f3f20-e18b-4353-a38e-f724d5660794" name="Changes" comment="Added 'MongoDbJdbcDriver' folder">
+      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mongoDBExample" beforeDir="false" afterPath="$PROJECT_DIR$/mongoDBExample" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,16 +69,19 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Problems&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/main/resources/org/example/java_app_with_mongodb" />
       <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/src/main/resources/org/example/java_app_with_mongodb" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.MongoDBExample">
+  <component name="RunManager">
     <configuration name="MongoDBExample" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.example.java_app_with_mongodb.MongoDBExample" />
       <module name="java_App_with_MongoDB" />
@@ -107,8 +109,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9f38398b9061-18abd8497189-intellij.indexing.shared.core-IU-241.14494.240" />
-        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-IU-241.14494.240" />
+        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.18034.62" />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.18034.62" />
       </set>
     </attachedChunks>
   </component>
@@ -127,7 +129,24 @@
       <workItem from="1713156835602" duration="6979000" />
       <workItem from="1713163831604" duration="1168000" />
       <workItem from="1713165012737" duration="13703000" />
-      <workItem from="1713244900707" duration="299000" />
+      <workItem from="1713244900707" duration="501000" />
+      <workItem from="1721817588234" duration="198000" />
+      <workItem from="1721817853696" duration="5065000" />
+      <workItem from="1721825702099" duration="11802000" />
+      <workItem from="1721901849718" duration="26000" />
+      <workItem from="1721903177237" duration="97000" />
+      <workItem from="1721903772583" duration="59000" />
+      <workItem from="1721903859498" duration="46000" />
+      <workItem from="1721904081474" duration="62000" />
+      <workItem from="1721904443494" duration="715000" />
+      <workItem from="1721907072198" duration="308000" />
+      <workItem from="1721908617194" duration="252000" />
+      <workItem from="1721909110720" duration="200000" />
+      <workItem from="1721909886692" duration="381000" />
+      <workItem from="1721986206988" duration="113000" />
+      <workItem from="1721986713843" duration="78000" />
+      <workItem from="1722239338366" duration="49000" />
+      <workItem from="1722239425003" duration="2285000" />
     </task>
     <task id="LOCAL-00001" summary="Implemented MongoDB CRUD operations with JavaFX GUI">
       <option name="closed" value="true" />
@@ -137,7 +156,15 @@
       <option name="project" value="LOCAL" />
       <updated>1713180523907</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Added 'MongoDbJdbcDriver' folder">
+      <option name="closed" value="true" />
+      <created>1713245340397</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1713245340398</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -145,6 +172,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Implemented MongoDB CRUD operations with JavaFX GUI" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implemented MongoDB CRUD operations with JavaFX GUI" />
+    <MESSAGE value="Added 'MongoDbJdbcDriver' folder" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added 'MongoDbJdbcDriver' folder" />
   </component>
 </project>
